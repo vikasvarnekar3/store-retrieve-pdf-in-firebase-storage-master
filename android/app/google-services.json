@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1023956689577",
+    "project_id": "sppupdf",
+    "firebase_url" : "https://sppupdf-default-rtdb.firebaseio.com",
+    "storage_bucket": "sppupdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023956689577:android:3e948cec708546fc003fb8",
+        "android_client_info": {
+          "package_name": "com.example.upload_pdf_firebase_storage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023956689577-i55smnaej4pai1210g4fb3vrdms8jqab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkl5JZP3Gr9urKyr24wqSWNKjkg_I4cg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023956689577-i55smnaej4pai1210g4fb3vrdms8jqab.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
