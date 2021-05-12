@@ -15,8 +15,9 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  // ignore: deprecated_member_use
   List<Modal> itemList=List();
-  final mainReference = FirebaseDatabase.instance.reference();
+  final mainReference = FirebaseDatabase.instance.reference().child('Database'); //
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +38,7 @@ class _FirstPageState extends State<FirstPage> {
                       MaterialPageRoute(
                           builder: (context)=>ViewPdf(),
                           settings: RouteSettings(
+                            arguments: passData, //
                           )
                       )
                   );
@@ -72,7 +74,7 @@ class _FirstPageState extends State<FirstPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+           getPdfAndUpload();  //
         },
         child: Icon(Icons.add,color: Colors.white,),
         backgroundColor: Colors.red,
@@ -83,23 +85,33 @@ class _FirstPageState extends State<FirstPage> {
     var rng = new Random();
     String randomName="";
     for (var i = 0; i < 20; i++) {
+      print(rng.nextInt(100));
+      randomName += rng.nextInt(100).toString(); //
       //generate
     }
     File file = await FilePicker.getFile(type: FileType.custom);
     String fileName = '${randomName}.pdf';
+    savePdf(file.readAsBytesSync(), fileName); //
     //function call
   }
   savePdf(List<int> asset, String name) async {
     StorageReference reference = FirebaseStorage.instance.ref().child(name);
     StorageUploadTask uploadTask = reference.putData(asset);
     String url = await (await uploadTask.onComplete).ref.getDownloadURL();
+    documentFileUpload(url);  //
     //function call
   }
+
   String CreateCryptoRandomString([int length = 32]) {
+     final Random _random = Random.secure();
+     var values = List<int>.generate(length, (index) => _random.nextInt(256));
+     return base64Url.encode(values);  //
     //generate key
   }
   void documentFileUpload(String str) {
     var data = {
+      "PDF": str, //
+      "FileName": "Book", //  
       //store data
     };
     mainReference.child(CreateCryptoRandomString()).set(data).then((v) {
@@ -110,7 +122,20 @@ class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
     mainReference.once().then((DataSnapshot snap){
+      var data = snap.value;
+      print(data);
+      itemList.clear();
+      data.forEach((key,value)
+      {
+        Modal m = new Modal(value['PDF'], value['FileName']);
+        itemList.add(m);
+      });
+      setState(() {
+        print("value is ");
+        print(itemList.length);
+      });
      //get data from firebase
+
     });
   }
 
